@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "PP-CANDY",
+  "version": "1.0",
+  "description": "Paste ID and navigate tabs using keyboard shortcuts.",
+  "permissions": [
+    "activeTab",
+    "clipboardRead",
+    "tabs",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "paste-user-id": {
+      "suggested_key": {
+        "default": "Ctrl+B"
+      },
+      "description": "Paste User ID to the active tab"
+    },
+    "move-tab-left": {
+      "suggested_key": {
+        "default": "Ctrl+Left"
+      },
+      "description": "Move to the previous tab"
+    },
+    "move-tab-right": {
+      "suggested_key": {
+        "default": "Ctrl+Right"
+      },
+      "description": "Move to the next tab"
+    }
+  },
+  "author": "Your Name"  // 作成者の名前を追加
+}

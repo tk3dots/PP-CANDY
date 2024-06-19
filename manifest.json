@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "PP-CANDY",
+  "name": "Bulk User ID Paster, Tab Navigator, and URL Replacer",
   "version": "1.0",
-  "description": "Paste ID and navigate tabs using keyboard shortcuts.",
+  "description": "Paste User ID, navigate tabs, and replace URL parts using keyboard shortcuts.",
   "permissions": [
     "activeTab",
     "clipboardRead",
@@ -30,7 +30,13 @@
         "default": "Ctrl+Right"
       },
       "description": "Move to the next tab"
+    },
+    "replace-url-part": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+U"
+      },
+      "description": "Replace part of the URL"
     }
   },
-  "author": "Your Name"  // 作成者の名前を追加
+  "author": "Your Name"
 }

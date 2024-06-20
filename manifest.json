@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Bulk User ID Paster, Tab Navigator, and URL Replacer",
+  "name": "PP-CANDY",
   "version": "1.0",
-  "description": "Paste User ID, navigate tabs, and replace URL parts using keyboard shortcuts.",
+  "description": "Navigate tabs, paste current date and time, and go to the first page using keyboard shortcuts.",
   "permissions": [
     "activeTab",
     "clipboardRead",
@@ -10,15 +10,9 @@
     "scripting"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background/background.js"
   },
   "commands": {
-    "paste-user-id": {
-      "suggested_key": {
-        "default": "Ctrl+B"
-      },
-      "description": "Paste User ID to the active tab"
-    },
     "move-tab-left": {
       "suggested_key": {
         "default": "Ctrl+Left"
@@ -31,12 +25,24 @@
       },
       "description": "Move to the next tab"
     },
-    "replace-url-part": {
+    "paste-date-time": {
       "suggested_key": {
-        "default": "Ctrl+Shift+U"
+        "default": "Ctrl+Shift+S"
       },
-      "description": "Replace part of the URL"
+      "description": "Paste the current date and time"
+    },
+    "go-to-first-page": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F"
+      },
+      "description": "Go to the first page in the tab history"
     }
   },
-  "author": "Your Name"
+  "author": "Your Name",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
 }

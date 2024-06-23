@@ -27,7 +27,7 @@
     },
     "paste-date-time": {
       "suggested_key": {
-        "default": "Ctrl+Shift+S"
+        "default": "Ctrl+Shift+D"
       },
       "description": "Paste the current date and time"
     },

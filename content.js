@@ -1,31 +1,40 @@
 console.log("content.js loaded");
 
+let debounceTimeout;
+
 function pasteDateTime() {
   console.log("Executing pasteDateTime function");
-  const now = new Date();
-  const day = now.getDate();
-  const hours = now.getHours();
 
-  // 日にちと時間の文字列を作成
-  const dateStr = `${day}\t${hours.toString().padStart(2, '0')}`;
+  if (debounceTimeout) {
+    clearTimeout(debounceTimeout);
+  }
 
-  // クリップボードにデータをコピー
-  navigator.clipboard.writeText(dateStr).then(() => {
-    console.log("Date and time copied to clipboard:", dateStr);
-    const activeElement = document.activeElement;
-    console.log("Active element:", activeElement);
+  debounceTimeout = setTimeout(() => {
+    const now = new Date();
+    const day = now.getDate();
+    const hours = now.getHours();
 
-    // フォーカスされている要素に貼り付け
-    if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA' || activeElement.isContentEditable)) {
-      activeElement.focus();
-      document.execCommand('paste');
-      console.log(`Pasted date and time: ${dateStr}`);
-    } else {
-      console.error("No active text input, textarea, or contenteditable element to insert date and time");
-    }
-  }).catch(err => {
-    console.error("Failed to copy date and time to clipboard:", err);
-  });
+    // Create the date and time string separated by a tab
+    const dateStr = `${day}\t${hours.toString().padStart(2, '0')}`;
+
+    // Copy the data to the clipboard
+    navigator.clipboard.writeText(dateStr).then(() => {
+      console.log("Date and time copied to clipboard:", dateStr);
+      const activeElement = document.activeElement;
+      console.log("Active element:", activeElement);
+
+      // Paste into the focused element
+      if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA' || activeElement.isContentEditable)) {
+        activeElement.focus();
+        document.execCommand('paste');
+        console.log(`Pasted date and time: ${dateStr}`);
+      } else {
+        console.error("No active text input, textarea, or contenteditable element to insert date and time");
+      }
+    }).catch(err => {
+      console.error("Failed to copy date and time to clipboard:", err);
+    });
+  }, 500);  // 500ms debounce
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {

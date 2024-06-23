@@ -2,15 +2,20 @@
   "manifest_version": 3,
   "name": "PP-CANDY",
   "version": "1.0",
-  "description": "Navigate tabs, paste current date and time, and go to the first page using keyboard shortcuts.",
+  "description": "Navigate tabs, paste current date and time, go to the first page, and store selected text using keyboard shortcuts and context menu.",
   "permissions": [
     "activeTab",
     "clipboardRead",
+    "contextMenus",
+    "storage",
     "tabs",
     "scripting"
   ],
   "background": {
     "service_worker": "background/background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html"
   },
   "commands": {
     "move-tab-left": {
@@ -39,9 +44,13 @@
     }
   },
   "author": "Your Name",
+  "options_ui": {
+    "page": "options/storeSelectedText.html",
+    "open_in_tab": true
+  },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://docs.google.com/spreadsheets/*"],
       "js": ["content.js"]
     }
   ]

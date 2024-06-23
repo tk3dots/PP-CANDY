@@ -1,4 +1,4 @@
-importScripts('moveTabs.js', 'pasteDateTime.js', 'goToFirstPage.js');
+importScripts('moveTabs.js', 'pasteDateTime.js', 'goToFirstPage.js', 'contextMenu.js');
 
 chrome.commands.onCommand.addListener(async function(command) {
   const tabs = await chrome.tabs.query({ currentWindow: true, active: true });

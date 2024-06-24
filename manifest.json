@@ -44,7 +44,7 @@
   },
   "author": "Your Name",
   "options_ui": {
-    "page": "option/option.html",
+    "page": "option/option.html?tab=1",
     "open_in_tab": true
   },
   "content_scripts": [

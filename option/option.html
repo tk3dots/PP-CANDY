@@ -50,10 +50,6 @@
   </style>
 </head>
 <body>
-  <script src="changeTab.js"></script>
-  <script src="storeSelectedText.js"></script>
-  <script src="Sortable.min.js"></script>
-
   <div class="tab-links">
     <button id="tab1-btn">Text Editor</button>
     <button id="tab2-btn">Stored Texts</button>
@@ -62,7 +58,7 @@
     <button id="tab5-btn">Tab 5</button>
   </div>
 
-  <div id="tab1" class="tab-content active">
+  <div id="tab1" class="tab-content">
     <h1>Text Editor</h1>
     <textarea id="text-editor" rows="10" cols="50"></textarea>
     <button id="save-btn">Save to Storage</button>
@@ -76,13 +72,16 @@
   <div id="tab2" class="tab-content">
     <h1>Stored Texts</h1>
     <ul id="stored-texts"></ul>
-    <button id="clear-all">Delete All</button>
+    <button id="clear-all">Clear All</button>
   </div>
 
   <div id="tab3" class="tab-content">Content for Tab 3</div>
   <div id="tab4" class="tab-content">Content for Tab 4</div>
   <div id="tab5" class="tab-content">Content for Tab 5</div>
 
+  <script src="changeTab.js"></script>
+  <script src="storeSelectedText.js"></script>
+  <script src="option.js"></script>
   <script src="textEditor.js"></script>
 </body>
 </html>

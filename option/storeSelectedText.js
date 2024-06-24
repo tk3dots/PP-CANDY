@@ -28,7 +28,7 @@ function updateStoredTexts() {
 
       // Add a delete button for each text
       const deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Delete';
+      deleteButton.textContent = 'Clear';
       deleteButton.addEventListener('click', () => {
         deleteStoredText(index);
       });

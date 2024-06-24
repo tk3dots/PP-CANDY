@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "PP-CANDY",
   "version": "1.0",
-  "description": "Bulk User ID Paster, Tab Navigator, URL Replacer, and Date Time Paster",
+  "description": "PP-CANDY",
   "permissions": [
     "activeTab",
     "clipboardRead",

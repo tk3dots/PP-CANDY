@@ -73,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const reader = new FileReader();
       reader.onload = function(e) {
         const content = e.target.result;
-        textEditor.value = content; // テキストエディタに内容を表示
+        const convertedContent = content.replace(/\t/g, '\n'); // タブを改行に置換
+        textEditor.value = convertedContent; // テキストエディタに内容を表示
       };
       reader.readAsText(file);
     }

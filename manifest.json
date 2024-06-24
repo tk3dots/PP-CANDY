@@ -19,13 +19,13 @@
   "commands": {
     "move-tab-left": {
       "suggested_key": {
-        "default": "Ctrl+Left"
+        "default": "Ctrl+Shift+Left"
       },
       "description": "Move to the previous tab"
     },
     "move-tab-right": {
       "suggested_key": {
-        "default": "Ctrl+Right"
+        "default": "Ctrl+Shift+Right"
       },
       "description": "Move to the next tab"
     },

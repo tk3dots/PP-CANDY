@@ -33,26 +33,52 @@
       padding: 10px;
       font-size: 14px;
     }
+    #text-editor {
+      width: 100%;
+      min-height: 800px;
+      padding: 10px;
+      margin-top: 10px;
+      box-sizing: border-box;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
   <script src="changeTab.js"></script>
   <script src="storeSelectedText.js"></script>
+  
   <div class="tab-links">
-    <button id="tab1-btn">Stored Texts</button>
-    <button id="tab2-btn">Tab 2</button>
+    <button id="tab1-btn">Text Editor</button>
+    <button id="tab2-btn">Stored Texts</button>
     <button id="tab3-btn">Tab 3</button>
     <button id="tab4-btn">Tab 4</button>
     <button id="tab5-btn">Tab 5</button>
   </div>
+
   <div id="tab1" class="tab-content active">
+    <h1>Text Editor</h1>
+    <textarea id="text-editor" rows="10" cols="50"></textarea>
+    <button id="save-btn">Save to Storage</button>
+    <button id="read-storage-btn">Read from Storage</button>
+    <button id="delete-storage-btn">Delete from Storage</button>
+    <input type="file" id="import-file" style="display: none;" accept=".txt">
+    <button id="import-btn">Import from File</button>
+    <button id="export-btn">Export to File</button>
+  </div>
+
+  <div id="tab2" class="tab-content">
     <h1>Stored Texts</h1>
     <ul id="stored-texts"></ul>
     <button id="clear-all">Clear All</button>
   </div>
-  <div id="tab2" class="tab-content">Content for Tab 2</div>
+
   <div id="tab3" class="tab-content">Content for Tab 3</div>
   <div id="tab4" class="tab-content">Content for Tab 4</div>
   <div id="tab5" class="tab-content">Content for Tab 5</div>
+
+  <script src="textEditor.js"></script>
 </body>
 </html>

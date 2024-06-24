@@ -18,11 +18,17 @@ function pasteDateTime() {
     const hours = String(now.getHours()).padStart(2, '0');
     const dateTimeString = `${day}\t${hours}`;
 
-    // アクティブ要素が BODY かどうかをチェックして挿入
-    const activeElement = document.activeElement;
-    if (activeElement && activeElement.tagName === 'BODY') {
-      document.execCommand('insertText', false, dateTimeString);
-    }
+    // クリップボードにテキストをコピー
+    const textArea = document.createElement("textarea");
+    textArea.value = dateTimeString;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+    console.log('DateTime string copied to clipboard');
+
+    // ユーザーに手動でペーストさせるメッセージを表示
+    alert("Date and time copied to clipboard. Please paste it manually (Ctrl+V).");
   }, 500); // デバウンスの時間を 500ms に設定
 }
 
@@ -39,9 +45,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 // テキストをクリップボードにコピーする関数
 function copyTextToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    console.log('Text copied to clipboard');
-  }).catch(err => {
-    console.error('Could not copy text: ', err);
-  });
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textArea);
+  console.log('Text copied to clipboard');
 }

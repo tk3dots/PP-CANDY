@@ -77,7 +77,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     });
   } else if (info.menuItemId === "openStoredTextPage") {
     // Open storeSelectedText.html in a new tab
-    chrome.tabs.create({ url: chrome.runtime.getURL("options/storeSelectedText.html") });
+    chrome.tabs.create({ url: chrome.runtime.getURL("option/option.html") });
   }
 });
 

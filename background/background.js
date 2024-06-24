@@ -18,3 +18,19 @@ chrome.commands.onCommand.addListener(async function(command) {
     await goToFirstPage(activeTab.id);
   }
 });
+
+let closedTabs = [];
+
+// タブが閉じられた時の処理
+chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
+  // Check if the tab is in the closedTabs list before removing it
+  closedTabs = closedTabs.filter(t => t.id !== tabId);
+
+  // Store the closed tab information
+  chrome.sessions.getRecentlyClosed({ maxResults: 1 }, function(sessions) {
+    if (sessions && sessions.length > 0 && sessions[0].tab) {
+      let tab = sessions[0].tab;
+      closedTabs.push(tab);
+    }
+  });
+});

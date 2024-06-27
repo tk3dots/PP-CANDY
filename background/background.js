@@ -45,14 +45,7 @@ chrome.runtime.onInstalled.addListener(() => {
   // Create a menu item to open storeSelectedText.html
   chrome.contextMenus.create({
     id: "openStoredTextPage",
-    title: "Open Stored Texts Page",
-    contexts: ["all"]
-  });
-
-  // Create a "Clear all stored texts" menu item
-  chrome.contextMenus.create({
-    id: "clearStoredTexts",
-    title: "Clear all stored texts",
+    title: "Open Workspace",
     contexts: ["all"]
   });
 
@@ -141,10 +134,10 @@ function updateDynamicContextMenu() {
       contexts: ["selection"]
     });
 
-    // Create a menu item to open storeSelectedText.html
+    // Create a menu item to open option.html
     chrome.contextMenus.create({
       id: "openStoredTextPage",
-      title: "Open Stored Texts Page",
+      title: "Open Workspace",
       contexts: ["all"]
     });
 
@@ -157,13 +150,6 @@ function updateDynamicContextMenu() {
           contexts: ["all"]
         });
       });
-    });
-
-    // Create a "Clear all stored texts" menu item
-    chrome.contextMenus.create({
-      id: "clearStoredTexts",
-      title: "Clear all stored texts",
-      contexts: ["all"]
     });
   });
 }

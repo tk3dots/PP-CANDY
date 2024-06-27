@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('tab1-btn').addEventListener('click', function() { changeTab(1); });
+  document.getElementById('tab2-btn').addEventListener('click', function() { changeTab(2); });
   document.getElementById('tab3-btn').addEventListener('click', function() { changeTab(3); });
   document.getElementById('tab4-btn').addEventListener('click', function() { changeTab(4); });
   document.getElementById('tab5-btn').addEventListener('click', function() { changeTab(5); });

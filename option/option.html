@@ -74,6 +74,15 @@
       width: 75%; /* 右カラムの幅を75%に設定 */
       box-sizing: border-box;
     }
+    ul#stored-texts {
+      margin-bottom: 30px;
+    }
+    .stored-texts {
+      margin-bottom: 30px;
+    }
+    .date-time {
+      margin-top: 60px;
+    }
   </style>
 </head>
 <body>
@@ -88,11 +97,16 @@
   <div id="tab1" class="tab-content">
     <div class="container">
       <div class="left-column">
-        <h1>Stored Texts</h1>
-        <ul id="stored-texts">
-          <!-- リストアイテムはJavaScriptで生成 -->
-        </ul>
-        <button id="clear-all">Clear All</button>
+        <div class="stored-texts">
+          <h1>Stored Texts</h1>
+          <ul id="stored-texts">
+            <!-- リストアイテムはJavaScriptで生成 -->
+          </ul>
+          <button id="clear-all">Clear All</button>
+        </div>
+        <div class="date-time">
+          <h1>Date and Time</h1>
+        </div>
       </div>
       <div class="right-column">
         <h1>Text Editor</h1>

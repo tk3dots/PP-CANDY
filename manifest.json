@@ -10,7 +10,8 @@
     "scripting",
     "storage",
     "tabs",
-    "contextMenus"
+    "contextMenus",
+    "commands"
   ],
   "background": {
     "service_worker": "background/background.js"

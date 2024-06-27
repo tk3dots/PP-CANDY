@@ -42,9 +42,9 @@ chrome.runtime.onInstalled.addListener(() => {
     contexts: ["selection"]
   });
 
-  // Create a menu item to open storeSelectedText.html
+  // Create a menu item to open option.html
   chrome.contextMenus.create({
-    id: "openStoredTextPage",
+    id: "open-workspace",
     title: "Open Workspace",
     contexts: ["all"]
   });
@@ -87,16 +87,9 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         });
       });
     });
-  } else if (info.menuItemId === "clearStoredTexts") {
-    // Clear all stored texts
-    chrome.storage.local.set({storedTexts: []}, () => {
-      console.log("All stored texts cleared");
-      // Update the options page and dynamic context menu
-      updateStoredTextsAndMenu();
-    });
-  } else if (info.menuItemId === "openStoredTextPage") {
-    // Open storeSelectedText.html in a new tab with tab2
-    chrome.tabs.create({ url: chrome.runtime.getURL("option/option.html?tab=2") });
+  } else if (info.menuItemId === "open-workspace") {
+    // Open option.html in a new tab
+    chrome.tabs.create({ url: chrome.runtime.getURL("option/option.html") });
   }
 });
 
@@ -120,6 +113,9 @@ function updateStoredTextsAndMenu() {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "updateStoredTexts") {
     updateDynamicContextMenu();
+  } else if (request.action === "copy-text") {
+    copyTextToClipboard(request.index);
+    sendResponse({ result: "success" });
   }
 });
 
@@ -136,7 +132,7 @@ function updateDynamicContextMenu() {
 
     // Create a menu item to open option.html
     chrome.contextMenus.create({
-      id: "openStoredTextPage",
+      id: "open-workspace",
       title: "Open Workspace",
       contexts: ["all"]
     });
@@ -151,5 +147,24 @@ function updateDynamicContextMenu() {
         });
       });
     });
+  });
+}
+
+function copyTextToClipboard(index) {
+  chrome.storage.local.get({ storedTexts: [] }, (data) => {
+    const text = data.storedTexts[index];
+    if (text) {
+      chrome.scripting.executeScript({
+        target: { allFrames: true },
+        func: (text) => {
+          navigator.clipboard.writeText(text).then(() => {
+            console.log(`Text copied: ${text}`);
+          }).catch(err => {
+            console.error('Could not copy text: ', err);
+          });
+        },
+        args: [text]
+      });
+    }
   });
 }

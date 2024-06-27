@@ -53,3 +53,39 @@ function copyTextToClipboard(text) {
   document.body.removeChild(textArea);
   console.log('Text copied to clipboard');
 }
+
+document.addEventListener('keydown', (event) => {
+  if (event.ctrlKey && event.shiftKey) {
+    let index;
+    switch (event.code) {
+      case 'Numpad1':
+        index = 0;
+        break;
+      case 'Numpad2':
+        index = 1;
+        break;
+      case 'Numpad3':
+        index = 2;
+        break;
+      case 'Numpad4':
+        index = 3;
+        break;
+      case 'Numpad5':
+        index = 4;
+        break;
+      case 'Numpad6':
+        index = 5;
+        break;
+      case 'Numpad7':
+        index = 6;
+        break;
+      default:
+        return; // それ以外のキーは無視
+    }
+    chrome.runtime.sendMessage({ action: "copy-text", index: index }, (response) => {
+      if (response.result === "success") {
+        console.log(`Text ${index + 1} copied to clipboard.`);
+      }
+    });
+  }
+});

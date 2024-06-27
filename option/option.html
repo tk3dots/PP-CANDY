@@ -6,6 +6,7 @@
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+      min-width: 1024px; /* 最小幅を1024pxに設定 */
     }
     .tab-content {
       display: none;
@@ -19,21 +20,36 @@
       font-size: 14px;
       cursor: pointer;
     }
-    #stored-texts {
+    ul {
       list-style-type: none;
       padding: 0;
     }
-    #stored-texts li {
+    li {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin: 5px 10px 5px 0;
-      padding: 10px 10px 10px 10px;
+      padding: 10px;
       border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .drag-handle {
+      cursor: move;
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+    .text {
+      flex-grow: 1;
+      margin-right: 10px;
     }
     button {
       padding: 10px;
       font-size: 14px;
+      margin-left: 5px;
+    }
+    .action-buttons {
+      display: flex;
     }
     textarea {
       width: 100%;
@@ -41,40 +57,57 @@
       padding: 10px;
       margin-bottom: 30px;
       box-sizing: border-box;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 16px;
+      font-size: 14px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 5px; /* border-radiusを追加 */
       resize: none;
+    }
+    .container {
+      display: flex;
+    }
+    .left-column {
+      width: 25%; /* 左カラムの幅を25%に設定 */
+      padding-right: 20px;
+      box-sizing: border-box;
+    }
+    .right-column {
+      width: 75%; /* 右カラムの幅を75%に設定 */
+      box-sizing: border-box;
     }
   </style>
 </head>
 <body>
   <div class="tab-links">
-    <button id="tab1-btn">Text Editor</button>
-    <button id="tab2-btn">Stored Texts</button>
+    <button id="tab1-btn">Main</button>
+    <button id="tab2-btn">Tab 2</button>
     <button id="tab3-btn">Tab 3</button>
     <button id="tab4-btn">Tab 4</button>
     <button id="tab5-btn">Tab 5</button>
   </div>
 
   <div id="tab1" class="tab-content">
-    <h1>Text Editor</h1>
-    <textarea id="text-editor" rows="10" cols="50"></textarea>
-    <button id="save-btn">Save to Storage</button>
-    <button id="read-storage-btn">Read from Storage</button>
-    <button id="delete-storage-btn">Delete from Storage</button>
-    <input type="file" id="import-file" style="display: none;" accept=".txt">
-    <button id="import-btn">Import from File</button>
-    <button id="export-btn">Export to File</button>
+    <div class="container">
+      <div class="left-column">
+        <h1>Stored Texts</h1>
+        <ul id="stored-texts">
+          <!-- リストアイテムはJavaScriptで生成 -->
+        </ul>
+        <button id="clear-all">Clear All</button>
+      </div>
+      <div class="right-column">
+        <h1>Text Editor</h1>
+        <textarea id="text-editor" rows="10" cols="50"></textarea>
+        <button id="save-btn">Save to Storage</button>
+        <button id="read-storage-btn">Read from Storage</button>
+        <button id="delete-storage-btn">Delete from Storage</button>
+        <input type="file" id="import-file" style="display: none;" accept=".txt">
+        <button id="import-btn">Import from File</button>
+        <button id="export-btn">Export to File</button>
+      </div>
+    </div>
   </div>
 
-  <div id="tab2" class="tab-content">
-    <h1>Stored Texts</h1>
-    <ul id="stored-texts"></ul>
-    <button id="clear-all">Clear All</button>
-  </div>
-
+  <div id="tab2" class="tab-content">Content for Tab 2</div>
   <div id="tab3" class="tab-content">Content for Tab 3</div>
   <div id="tab4" class="tab-content">Content for Tab 4</div>
   <div id="tab5" class="tab-content">Content for Tab 5</div>
@@ -83,5 +116,6 @@
   <script src="storeSelectedText.js"></script>
   <script src="option.js"></script>
   <script src="textEditor.js"></script>
+  <script src="Sortable.min.js"></script> <!-- Sortable.jsの読み込み -->
 </body>
 </html>

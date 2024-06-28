@@ -69,13 +69,18 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.storage.local.set({ reviewKey, reviewTime }, () => {
       alert('Review data saved。');
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        chrome.scripting.executeScript({
-          target: { tabId: tabs[0].id },
-          func: (reviewTime) => {
-            chrome.runtime.sendMessage({ action: "highlightText", text: reviewTime });
-          },
-          args: [reviewTime]
-        });
+        try {
+          chrome.scripting.executeScript({
+            target: { tabId: tabs[0].id },
+            func: (reviewTime) => {
+              chrome.runtime.sendMessage({ action: "highlightText", text: reviewTime });
+            },
+            args: [reviewTime]
+          });
+        } catch (error) {
+          console.error('Error executing script:', error);
+          // エラーが発生した場合は無視して次の処理を続行
+        }
       });
     });
   });

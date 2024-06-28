@@ -7,14 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const importBtn = document.getElementById('import-btn');
   const importFile = document.getElementById('import-file');
 
-  // ボタンの状態を更新する関数
+  // ボタンの状態を更新
   function updateButtonStates() {
     const hasData = localStorage.getItem('textEditorContent') !== null;
     readStorageBtn.disabled = !hasData;
     deleteStorageBtn.disabled = !hasData;
   }
 
-  // テキストを保存する機能
+  // テキストを保存
   saveBtn.addEventListener('click', function() {
     const text = textEditor.value;
     localStorage.setItem('textEditorContent', text);
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateButtonStates(); // セーブ後にボタンの状態を更新
   });
 
-  // ストレージからデータを読み込む機能
+  // ストレージからデータを読み込み
   readStorageBtn.addEventListener('click', function() {
     const storedText = localStorage.getItem('textEditorContent');
     if (storedText) {
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // ストレージからデータを削除する機能
+  // ストレージからデータを削除
   deleteStorageBtn.addEventListener('click', function() {
     localStorage.removeItem('textEditorContent');
     textEditor.value = ''; // テキストエディタの内容もクリア
@@ -48,21 +48,21 @@ document.addEventListener('DOMContentLoaded', function() {
   // ボタンの状態を初期化
   updateButtonStates();
 
-  // テキストをエクスポートする機能
+  // テキストをエクスポート
   exportBtn.addEventListener('click', function() {
     const text = textEditor.value;
     const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'text-editor-content.txt';
+    a.download = 'ppcandy-text-editor-content.txt';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   });
 
-  // テキストをインポートする機能
+  // テキストをインポート
   importBtn.addEventListener('click', function() {
     importFile.click(); // ファイル入力をトリガー
   });

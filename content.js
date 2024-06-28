@@ -40,6 +40,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   } else if (request.action === "copyTextToClipboard") {
     copyTextToClipboard(request.text);
     sendResponse({result: "success"});
+  } else if (request.action === "highlightText") {
+    highlightText(request.text);
+    sendResponse({result: "success"});
   }
 });
 
@@ -53,3 +56,68 @@ function copyTextToClipboard(text) {
   document.body.removeChild(textArea);
   console.log('Text copied to clipboard');
 }
+
+// テキストノードをハイライトする関数
+function highlightText(text) {
+  // option.htmlページを除外
+  if (window.location.href.includes("option.html")) {
+    return;
+  }
+
+  // 最低限の文字列長をチェック（例えば2文字以上）
+  if (text.length < 2) {
+    return;
+  }
+
+  // 再帰的にDOMを走査してテキストノードを置き換える
+  function highlightNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const parentNode = node.parentNode;
+      // インプットフィールドなどを除外
+      if (parentNode.nodeName !== 'SCRIPT' && parentNode.nodeName !== 'STYLE' && parentNode.nodeName !== 'TEXTAREA' && parentNode.nodeName !== 'INPUT') {
+        const regex = new RegExp(`(${text})`, 'gi');
+        const parts = node.nodeValue.split(regex);
+        if (parts.length > 1) {
+          const fragment = document.createDocumentFragment();
+          parts.forEach((part, index) => {
+            if (index % 2 === 1) {
+              const highlight = document.createElement('span');
+              highlight.style.backgroundColor = 'yellow';
+              highlight.textContent = part;
+              fragment.appendChild(highlight);
+            } else {
+              fragment.appendChild(document.createTextNode(part));
+            }
+          });
+          parentNode.replaceChild(fragment, node);
+        }
+      }
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      node.childNodes.forEach(highlightNode);
+    }
+  }
+
+  highlightNode(document.body);
+}
+
+// メッセージリスナー
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "highlightText") {
+    highlightText(request.text);
+    sendResponse({ result: "success" });
+  }
+});
+
+// ページのロード時にReview Timeをハイライト
+chrome.storage.local.get(['reviewTime'], (data) => {
+  if (data.reviewTime) {
+    highlightText(data.reviewTime);
+  }
+});
+
+// ストレージの変更を監視してReview Timeをハイライト
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (changes.reviewTime) {
+    highlightText(changes.reviewTime.newValue);
+  }
+});

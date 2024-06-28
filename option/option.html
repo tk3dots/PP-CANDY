@@ -53,9 +53,8 @@
     }
     textarea {
       width: 100%;
-      min-height: 800px;
       padding: 10px;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
       box-sizing: border-box;
       font-size: 14px;
       border: 1px solid #ccc;
@@ -109,8 +108,15 @@
         </div>
       </div>
       <div class="right-column">
-        <h1>Text Editor</h1>
-        <textarea id="text-editor" rows="10" cols="50"></textarea>
+        <h1>Review Key</h1>
+        <textarea id="review-key" rows="1" cols="50"></textarea>
+        <h1>Review Time</h1>
+        <textarea id="review-time" rows="1" cols="50"></textarea>
+        <button id="save-review-btn">Save Review Data</button>
+        <button id="reset-review-btn">Reset Review Data</button>
+        <button id="highlight-review-time-btn">Highlight Review Time</button>
+        <h1 style="margin-top: 60px;">Text Editor</h1>
+        <textarea id="text-editor" rows="40" cols="50"></textarea>
         <button id="save-btn">Save to Storage</button>
         <button id="read-storage-btn">Read from Storage</button>
         <button id="delete-storage-btn">Delete from Storage</button>

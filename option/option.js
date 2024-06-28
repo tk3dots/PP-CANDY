@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (targetTab) {
       targetTab.classList.add('active');
     } else {
-      console.warn(`Tab with ID tab${tab} does not exist.`);
+      console.warn(`Tab with ID tab${tab} does not exist。`);
       document.getElementById('tab1').classList.add('active'); // Default to tab1 if tab doesn't exist
     }
   } else {
@@ -54,5 +54,38 @@ document.addEventListener('DOMContentLoaded', () => {
       tabContent.classList.remove('active');
     });
     document.getElementById('tab5').classList.add('active');
+  });
+
+  // Load review data from storage
+  chrome.storage.local.get(['reviewKey', 'reviewTime'], (data) => {
+    document.getElementById('review-key').value = data.reviewKey || '';
+    document.getElementById('review-time').value = data.reviewTime || '';
+  });
+
+  // Save review data to storage and highlight Review Time
+  document.getElementById('save-review-btn').addEventListener('click', () => {
+    const reviewKey = document.getElementById('review-key').value;
+    const reviewTime = document.getElementById('review-time').value;
+    chrome.storage.local.set({ reviewKey, reviewTime }, () => {
+      alert('Review data saved。');
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.scripting.executeScript({
+          target: { tabId: tabs[0].id },
+          func: (reviewTime) => {
+            chrome.runtime.sendMessage({ action: "highlightText", text: reviewTime });
+          },
+          args: [reviewTime]
+        });
+      });
+    });
+  });
+
+  // Reset review data
+  document.getElementById('reset-review-btn').addEventListener('click', () => {
+    chrome.storage.local.remove(['reviewKey', 'reviewTime'], () => {
+      document.getElementById('review-key').value = '';
+      document.getElementById('review-time').value = '';
+      alert('Review data reset。');
+    });
   });
 });
